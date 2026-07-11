@@ -1,0 +1,46 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "net-code/laravel-scramble",
+    "description": "Scramble operation transformers for Laravel REST APIs: namespace/attribute-driven tagging, RFC 9457 error responses, and spatie-Data query parameters.",
+    "keywords": ["laravel", "scramble", "openapi", "documentation", "api"],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.5",
+        "dedoc/scramble": "^0.13",
+        "spatie/laravel-data": "^4.23"
+    },
+    "require-dev": {
+        "illuminate/routing": "^13.0",
+        "laravel/pint": "^1.27",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^13.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "NetCode\\Scramble\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NetCode\\Scramble\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": "@php vendor/bin/pint",
+        "lint:test": "@php vendor/bin/pint --test",
+        "analyse": "@php vendor/bin/phpstan analyse",
+        "test": "@php vendor/bin/phpunit",
+        "check": [
+            "@lint:test",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
