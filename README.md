@@ -17,6 +17,7 @@ Pulls in `dedoc/scramble` and `spatie/laravel-data`.
 |---|---|
 | `NetCode\Scramble\TagByNamespace` | Tags each operation by its controller: an explicit `#[ApiTag]` wins, otherwise a resolver you supply computes the tag from the controller's namespace segments. |
 | `NetCode\Scramble\DocumentErrorResponses` | Documents RFC 9457 problem+json errors from middleware, write methods, and `#[ApiErrors(...)]`. Scope with a namespace prefix. |
+| `NetCode\Scramble\DocumentDataRequestBody` | Documents the JSON body of POST/PUT/PATCH endpoints whose input is a spatie `Data` object: properties, input names, required and nullable fields, enums, dates, nested Data, and the Min/Max/Between/Size/Email/Uuid/Url attributes. A static `rules()` method is not read. |
 | `NetCode\Scramble\DocumentDataQueryParameters` | Documents GET query params for spatie `Data` request objects, which Scramble does not see natively. |
 | `NetCode\Scramble\ApiTag` | Class attribute overriding an endpoint's tag (group), e.g. `#[ApiTag('Admin', 'Billing')]`. |
 | `NetCode\Scramble\ApiErrors` | Class attribute declaring the domain error HTTP statuses an endpoint may return. |
@@ -32,6 +33,7 @@ controller has no audience subfolder:
 ```php
 use Dedoc\Scramble\Scramble;
 use NetCode\Scramble\DocumentDataQueryParameters;
+use NetCode\Scramble\DocumentDataRequestBody;
 use NetCode\Scramble\DocumentErrorResponses;
 use NetCode\Scramble\TagByNamespace;
 
@@ -50,6 +52,7 @@ Scramble::configure()->withOperationTransformers([
     }),
     new DocumentErrorResponses(namespacePrefix: 'Contexts\\'),
     $this->app->make(DocumentDataQueryParameters::class),
+    $this->app->make(DocumentDataRequestBody::class),
 ]);
 ```
 
